@@ -76,7 +76,6 @@ button{
     --current-grid-row: var(--desktop-grid-row);
     display: grid;
     position: absolute;
-    /* grid-auto-flow: column; */
     top: 0px;
     left: 0px;
     grid-template-columns: var(--current-grid-column);
@@ -119,7 +118,7 @@ button{
     display: flex;
     position: relative;
     top: 100px;
-    left: -50px;
+    /* left: -50px; */
     width: 200px;
     height: 350px;
     border: solid 6px white;
