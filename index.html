@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+</head>
+<body>
+    <div class="game-container">
+        <nav>
+            <form action="">
+                <label for="amount-of-cards">Choose the amount of cards</label>
+                <select name="amount-of-cards" class="cards-amount">                   
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                </select>
+            </form>
+            <button type="button" class="start-button" onclick="startButtonClicked()">START</button>
+        </nav>
+        <div class="cards-container"></div>
+    </div>
+
+    <script src="logicScript.js"></script>
+</body>
+</html>

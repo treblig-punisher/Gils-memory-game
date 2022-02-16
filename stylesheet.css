@@ -1,0 +1,156 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-size: 16px;
+    background: linear-gradient(rgb(16, 0, 20), rgb(2, 2, 8));
+}
+
+.game-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* background: linear-gradient(rgb(16, 0, 20), rgb(2, 2, 8)); */
+}
+
+nav{
+    display: flex;
+    position: absolute;
+    top: 0px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    width: 100%;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.781);
+    margin-right: auto;
+    margin-left: auto;
+    z-index: 10;
+}
+
+button{
+    border: none;
+}
+.start-button:hover{
+    cursor: pointer;
+    background-color: rgb(158, 53, 255);
+    color: rgb(109, 253, 253);
+    box-shadow: 0px 0px 60px rgb(197, 38, 245);
+    border: none;
+    width: 280px;
+}
+.start-button{
+    /* padding: 10px 20px; */
+    border: solid 2px rgb(184, 102, 250);
+    border-radius: 6px;
+    font-size: 1.4rem;
+    font-weight:bold;
+    transform: scale(1);
+    color: rgb(117, 87, 252);
+    box-shadow: 0px 0px 40px rgb(197, 38, 245);
+    background-color: rgb(38, 9, 65);
+    width: 200px;
+    height: 80px;
+    /* text-align: center; */
+    /* text-anchor: middle; */
+    margin-right: auto;
+    margin-left: auto;
+    transition: background-color 0.2s ease-in-out,
+     box-shadow 0.2s ease, color 0.2s ease
+     , width 0.2s ease;
+}
+
+
+.cards-container{
+    --mobile-grid-column: repeat(2, 100px);
+    --desktop-grid-column: repeat(8, 100px);
+    --current-grid-column: var(--desktop-grid-column);
+    --mobile-grid-row:  repeat(10, 160px);
+    --desktop-grid-row: repeat(2, 160px);
+    --current-grid-row: var(--desktop-grid-row);
+    display: grid;
+    position: absolute;
+    /* grid-auto-flow: column; */
+    top: 0px;
+    left: 0px;
+    grid-template-columns: var(--current-grid-column);
+    grid-template-rows: var(--current-grid-row);
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    z-index: 1;
+    border: solid 4px white;
+    /* overflow-y: scroll; */
+    /* padding: 0px 40px; */
+    /* margin-right: auto;
+    margin-left: auto; */
+
+}
+
+.card:hover{
+    cursor: pointer;
+    --initial-scale: var(--hover-scale);
+    box-shadow: 0px 0px 200px rgb(22, 92, 243);
+    z-index: 10;
+    
+}
+
+.card[isClicked="true"]{
+    --current-rotation: var(--flip-rotation);
+}
+
+.card[isClicked="false"]{
+    --current-rotation: var(--initial-rotation);
+}
+
+
+.card{
+    --initial-scale: 0.4;
+    --hover-scale: 0.45;
+    --initial-rotation: 0deg;
+    --flip-rotation: 180deg;
+    --current-rotation: 0deg;
+    display: flex;
+    position: relative;
+    top: 100px;
+    left: -50px;
+    width: 200px;
+    height: 350px;
+    border: solid 6px white;
+    background-image: url("card.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(var(--initial-scale)) rotateY(var(--current-rotation));
+    transform-style: preserve-3d;
+    /* backface-visibility: hidden; */
+    transition: transform 0.2s ease ;
+}
+
+form{
+    display: flex;
+    position: absolute;
+    transform: translateX(-300px);
+
+}
+.cards-amount{
+   
+    border-radius: 2px;
+    border: none;
+}
+
+.cards-amount:hover{
+    cursor: pointer;
+}
+
+label{
+    margin-right: 20px;
+    font-size: 1.3rem;
+    color: white;
+}
+
