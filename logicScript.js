@@ -7,6 +7,27 @@ let currentCardClicked = -1;
 let clicksPerformed = 0;
 let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 let assignedIdCount = 0;
+let cardManager ={
+    firstCard: "",
+    secondCard: "",
+    currentPairNumber: "",
+    pairCount: 0,
+    pairAssigner:()=>{
+
+    },
+    updatePairCount:()=>{
+        if(pairCount < 2)
+        {
+            pairCount ++;
+        }
+        else
+        {
+            pairCount = 0;
+        }
+    },
+}
+
+
 
 function getStyles()
 {   
@@ -26,18 +47,22 @@ function startButtonClicked(){
         let newCard = document.createElement('div');
         newCard.classList.add("card");
         newCard.setAttribute("isClicked", "false");
-        newCard.setAttribute("current-y-rotation", "0deg");
+        newCard.setAttribute("cardNumber", "");
         newCard.addEventListener("click", cardClicked); 
+        // newCard.addEventListener('transitionend', ()=>{
+        //    console.log(getComputedStyle(this).getPropertyValue("--current-rotation"));
+        // });
         getCardsContainer.appendChild(newCard);
             // document.querySelectorAll(".card")[i]
     }
-    // console.log(chosenAmountOfCards);
+    assignCardsNumbers();
 }
 function cardClicked()
 {
+    
     if(this.getAttribute("isClicked") === "false" && clicksPerformed < 2)
     {
-        
+        // console.log(getComputedStyle(this).getPropertyValue("--current-rotation"));
         this.setAttribute("isClicked", "true");
         clicksPerformed ++;
         
@@ -51,7 +76,7 @@ function cardClicked()
             setTimeout(()=>{
                 lastCardClicked.setAttribute("isClicked", "false");
                 currentCardClicked.setAttribute("isClicked", "false");  
-                resetCardStoringVariables();              
+                resetCardStoringVariables(); 
                 clicksPerformed = 0;
             }, 1000);
         }
@@ -64,27 +89,29 @@ function resetCardStoringVariables()
     currentCardClicked = -1;
 }
 
+function assignCardsNumbers()
+{
+    let currentValues = cardIdNumber.slice();
+    let count = amountOfCards;
+    let cards = [count];
+    const allCards = document.querySelectorAll("card");
+    while(count > 0)
+    {
+        let value = currentValues.pop();
+        let value2 = value;
+        allCards[count].setAttribute("cardNumber", value);
+        allCards[count-1].setAttribute("cardNumber", value2);
+        console.log(value, value2);
+        count --;
+        
+    }
+
+}
+function getRandomNumber(numberRange)
+{
+    return Math.floor(Math.random()*numberRange);
+}
+
 function selectStartingAmountOfCards(){
 
 }
-
-// function transitionFinished()
-// {
-//     const currentAnim = TransitionEvent.propertyName;
-//     if(TransitionEvent.propertyName === "transform")
-//     {
-//         console.log("rotation complete");
-//     }
-//     // if(this.style.transform === "rotateY(180deg)")
-//     // {
-//     //     this.style.backgroundImage = "url('https://doggiedonyc.com/wp-content/uploads/2014/06/dog2.jpg')";
-//     // }
-// }
-// function reverseCardFlip()
-// {
-//     if(lastCardClicked !== -1)
-//     {
-//         lastCardClicked.setAttribute("isClicked", "false");
-//     }
-//     // console.log("reverseCardFlip Fired");
-// }
