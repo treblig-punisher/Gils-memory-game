@@ -6,6 +6,24 @@ let lastCardClicked = -1;
 let currentCardClicked = -1;
 let clicksPerformed = 0;
 let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const listOfImages =[
+    "/images/billy.png",
+    "/images/charmander.png",
+    "/images/coraje.png",
+    "/images/dexter.png",
+    "/images/diddy-kong.png",
+    "/images/donkey-kong.png",
+    "/images/fenomenoide.png",
+    "/images/goku.png",
+    "/images/johnny-bravo.png",
+    "/images/kratos.png",
+    "/images/luigiPaper.png",
+    "/images/marioPaper.png",
+    "/images/megaman.png",
+    "/images/metabee.png",
+    "/images/mikey-simon.png",
+    "/images/pikachu.png",
+]
 let assignedIdCount = 0;
 let cardManager ={
     firstCard: "",
@@ -94,7 +112,7 @@ function assignCardsNumbers()
     let currentValues = cardIdNumber.slice();
     let count = amountOfCards;
     let cards = [count];
-    const allCards = document.querySelectorAll("card");
+    const allCards = document.querySelectorAll(".card");
     while(count > 0)
     {
         let value = currentValues.pop();
