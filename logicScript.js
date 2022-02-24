@@ -25,32 +25,32 @@ const listOfImages =[
     "/images/pikachu.png",
 ]
 let assignedIdCount = 0;
-let cardManager ={
-    firstCard: "",
-    secondCard: "",
-    currentPairNumber: "",
-    pairCount: 0,
-    pairAssigner:()=>{
+// let cardManager ={
+//     firstCard: "",
+//     secondCard: "",
+//     currentPairNumber: "",
+//     pairCount: 0,
+//     pairAssigner:()=>{
 
-    },
-    updatePairCount:()=>{
-        if(pairCount < 2)
-        {
-            pairCount ++;
-        }
-        else
-        {
-            pairCount = 0;
-        }
-    },
-}
+//     },
+//     updatePairCount:()=>{
+//         if(pairCount < 2)
+//         {
+//             pairCount ++;
+//         }
+//         else
+//         {
+//             pairCount = 0;
+//         }
+//     },
+// }
 
 
 
-function getStyles()
-{   
-    // console.log(e.computedsyleMap()); 
-}
+// function getStyles()
+// {   
+//     // console.log(e.computedsyleMap()); 
+// }
 function startButtonClicked(){
     chosenAmountOfCards = document.querySelector(".cards-amount").value;
     amountOfCards = chosenAmountOfCards;
@@ -73,7 +73,7 @@ function startButtonClicked(){
         getCardsContainer.appendChild(newCard);
             // document.querySelectorAll(".card")[i]
     }
-    assignCardsNumbers();
+    
 }
 function cardClicked()
 {
@@ -112,7 +112,7 @@ function assignCardsNumbers()
     let currentValues = cardIdNumber.slice();
     let count = amountOfCards;
     let cards = [count];
-    const allCards = document.querySelectorAll(".card");
+    let allCards = document.querySelectorAll(".card");
     while(count > 0)
     {
         let value = currentValues.pop();
