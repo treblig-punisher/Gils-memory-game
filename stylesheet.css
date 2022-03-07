@@ -72,19 +72,20 @@ button{
     --desktop-grid-column: repeat(8, 100px);
     --current-grid-column: var(--desktop-grid-column);
     --mobile-grid-row:  repeat(10, 160px);
-    --desktop-grid-row: repeat(2, 160px);
+    --desktop-grid-row: repeat(8, 160px);
     --current-grid-row: var(--desktop-grid-row);
     display: grid;
     position: absolute;
-    top: 0px;
+    top: -40px;
     left: 0px;
     grid-template-columns: var(--current-grid-column);
     grid-template-rows: var(--current-grid-row);
     justify-content: center;
     width: 100%;
     min-height: 100%;
+    height:fit-content;
     z-index: 1;
-    border: solid 4px white;
+    /* border: solid 4px white; */
 
 }
 
@@ -119,7 +120,7 @@ button{
     height: 350px;
     border: solid 6px white;
     background-image: url("card.png");
-    background-position: center;
+    /* background-position: center; */
     background-repeat: no-repeat;
     transform: scale(var(--initial-scale)) rotateY(var(--current-rotation));
     transform-style: preserve-3d;
@@ -148,4 +149,3 @@ label{
     font-size: 1.3rem;
     color: white;
 }
-

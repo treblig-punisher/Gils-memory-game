@@ -5,7 +5,12 @@ let amountOfCards = chosenAmountOfCards;
 let lastCardClicked = -1;
 let currentCardClicked = -1;
 let clicksPerformed = 0;
-let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+function print(stringToPrint)
+{
+    console.log(stringToPrint);
+}
 const listOfImages =[
     "/images/billy.png",
     "/images/charmander.png",
@@ -54,7 +59,7 @@ let assignedIdCount = 0;
 function startButtonClicked(){
     chosenAmountOfCards = document.querySelector(".cards-amount").value;
     amountOfCards = chosenAmountOfCards;
-    
+    clicksPerformed = 0;
     while(getCardsContainer.firstChild)
     {
         getCardsContainer.removeChild(getCardsContainer.firstChild);
@@ -65,6 +70,7 @@ function startButtonClicked(){
         let newCard = document.createElement('div');
         newCard.classList.add("card");
         newCard.setAttribute("isClicked", "false");
+        newCard.setAttribute("cardBackground", "");
         newCard.setAttribute("cardNumber", "");
         newCard.addEventListener("click", cardClicked); 
         // newCard.addEventListener('transitionend', ()=>{
@@ -73,7 +79,7 @@ function startButtonClicked(){
         getCardsContainer.appendChild(newCard);
             // document.querySelectorAll(".card")[i]
     }
-    
+    assignCardsNumbers();
 }
 function cardClicked()
 {
@@ -87,16 +93,32 @@ function cardClicked()
         if(clicksPerformed === 1)
         {
             lastCardClicked = this;
+            let getBackgroundImage = lastCardClicked.getAttribute('cardBackground');
+            lastCardClicked.style.backgroundImage = `url(${getBackgroundImage})`;
         }
         else if(clicksPerformed === 2)
         {
             currentCardClicked = this;
-            setTimeout(()=>{
-                lastCardClicked.setAttribute("isClicked", "false");
-                currentCardClicked.setAttribute("isClicked", "false");  
+            let getBackgroundImage = currentCardClicked.getAttribute('cardBackground');
+            currentCardClicked.style.backgroundImage = `url(${getBackgroundImage})`;
+            if(lastCardClicked.getAttribute('cardNumber') === currentCardClicked.getAttribute('cardNumber'))
+            {
+                let winSound = new Audio('sounds/success.wav');
+                winSound.play();
                 resetCardStoringVariables(); 
                 clicksPerformed = 0;
-            }, 1000);
+            }
+            else{
+                setTimeout(()=>{
+                    lastCardClicked.setAttribute("isClicked", "false");
+                    currentCardClicked.setAttribute("isClicked", "false");  
+                    lastCardClicked.style.backgroundImage = "url(card.png)";
+                    currentCardClicked.style.backgroundImage = "url(card.png)";
+                    resetCardStoringVariables(); 
+                    clicksPerformed = 0;
+                }, 800);
+
+            }
         }
     }
    
@@ -109,22 +131,40 @@ function resetCardStoringVariables()
 
 function assignCardsNumbers()
 {
-    let currentValues = cardIdNumber.slice();
-    let count = amountOfCards;
-    let cards = [count];
-    let allCards = document.querySelectorAll(".card");
-    while(count > 0)
+    
+    let allDivsInContainer = document.querySelectorAll('.card');
+    let amountOfNumbers = [];
+    let numberOfItems = 0;
+    while(amountOfNumbers.length < allDivsInContainer.length/2)
     {
-        let value = currentValues.pop();
-        let value2 = value;
-        allCards[count].setAttribute("cardNumber", value);
-        allCards[count-1].setAttribute("cardNumber", value2);
-        console.log(value, value2);
-        count --;
+        amountOfNumbers.push(numberOfItems);
+        numberOfItems++;
+    }
+    const copiedArray = amountOfNumbers.slice();
+    let newArrayOfPairs = amountOfNumbers.concat(copiedArray);
+    let shuffledArray = [];
+    const arrayLength = newArrayOfPairs.length;
+    let countDownArrayLength = arrayLength;
+    print('new array of pairs: '+ newArrayOfPairs);
+    for(let i = 0; i < arrayLength; i++)
+    {
+        print('arrayLengthThisTime: '+countDownArrayLength);
+        const indexThisTime = Math.floor(Math.random()*countDownArrayLength);
+        let valueFromDecreasingArrayThisTime = newArrayOfPairs[indexThisTime];
+        newArrayOfPairs.splice(indexThisTime, 1);
+        shuffledArray.push(valueFromDecreasingArrayThisTime);
+        countDownArrayLength--;
+        allDivsInContainer[i].setAttribute('cardNumber', valueFromDecreasingArrayThisTime);
+        allDivsInContainer[i].setAttribute('cardBackground', listOfImages[valueFromDecreasingArrayThisTime]);
         
     }
 
+    print(shuffledArray);
+    print(allDivsInContainer.length);
+
+
 }
+
 function getRandomNumber(numberRange)
 {
     return Math.floor(Math.random()*numberRange);
