@@ -149,3 +149,75 @@ label{
     font-size: 1.3rem;
     color: white;
 }
+
+.bottom-ui-container{
+    display: flex;
+    position: fixed;
+    background-color: rgb(255, 87, 255);
+    border-radius: 4px;
+    padding-block: 10px;
+    padding-inline: 20px;
+    right: 40px;
+    font-family: sans-serif;
+    outline: solid 2px rgb(251, 138, 255);
+    box-shadow: 0px 0px 20px rgb(237, 39, 255);
+    color:rgb(255, 255, 255);
+    bottom: 40px;
+    font-size: 2rem;
+}
+
+.tries-label{
+    margin-right: 10px;
+}
+
+.win-screen-container{
+    --visible: flex;
+    --hidden: none;
+    --message-visibility: var(--hidden);
+    display: var(--message-visibility);
+    position: fixed;
+    background-color: rgb(13, 193, 238);
+    z-index: 10;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.cleared-message{
+    font-family: sans-serif;
+    display: flex;
+    position: relative;
+    top: 100px;
+    margin-inline: auto;
+    font-size: 6rem;
+    color: aliceblue;
+}
+
+.win-nav-bar{
+    display: flex;
+    position: absolute;
+    margin-inline: auto;
+    /* align-items: space-between; */
+    width: 100%;
+    height:fit-content;
+    /* background-color: aqua; */
+    /* box-shadow: 0px 0px 40px rgba(10, 59, 138, 0.562); */
+    justify-content: center;
+    bottom: 400px;
+    padding-block: 10px;
+}
+
+.final-score, .play-again-button{
+
+    margin-right: 10px;
+    background-color: rgb(75, 213, 255);
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+    padding-inline: 20px;
+    padding-block: 5px;
+    border-radius: 2px;
+}
+
+.play-again-button:hover{
+    cursor:pointer;
+}

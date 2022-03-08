@@ -1,12 +1,67 @@
 const getCardsContainer = document.querySelector(".cards-container");
 const getStartButton = document.querySelector(".start-button");
+const winScreenContainer = document.querySelector('.win-screen-container');
+const playAgainButton = document.querySelector('.play-again-button');
+playAgainButton.addEventListener('click', ()=>{
+    winScreenContainer.style.setProperty('--message-visibility', 'none');
+    while(gameManager.arrayOfTruth.length > 0)
+    {
+        gameManager.arrayOfTruth.pop();
+
+    }
+    while(getCardsContainer.firstChild)
+    {
+        getCardsContainer.removeChild(getCardsContainer.firstChild);
+    }
+})
 let chosenAmountOfCards = 0;
 let amountOfCards = chosenAmountOfCards;
 let lastCardClicked = -1;
 let currentCardClicked = -1;
 let clicksPerformed = 0;
 let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
+let scoreManager ={
+    tries: 0,
+    updateTries(){
+        
+        tries++;
+        this.setScoreToElement();
+    },
+    getTries(){
+        return tries;
+    },
+    resetScore(){
+        tries = 0;
+        this.setScoreToElement();
+    },
+    setScoreToElement(){
+        const getTriesElement = document.querySelector('.tries-score');
+        getTriesElement.innerHTML = tries;
+    },
+}
+let gameManager = {
+    matchCleared: false,
+    arrayOfTruth:[],
+    addEntryToArray(newEntry){
+            this.arrayOfTruth.push(newEntry);
+            this.levelCleared();                              
+    },
+    levelCleared()
+    {
+        const cards = document.querySelectorAll('.card');
+        if(this.arrayOfTruth.length === cards.length/2)
+        {
+            const setFinalScore = document.querySelector('.final-score');
+            setFinalScore.innerHTML = 'Tries: '+document.querySelector('.tries-score').innerHTML;
+            const getWinScreen = document.querySelector('.win-screen-container');
+            const getVisible = getComputedStyle(getWinScreen).getPropertyValue('--visible');
+            getWinScreen.style.setProperty('--message-visibility', getVisible);
+        }
+    },
+}
+const timerManager={
+    timeElapsed: 0,
+}
 function print(stringToPrint)
 {
     console.log(stringToPrint);
@@ -57,6 +112,7 @@ let assignedIdCount = 0;
 //     // console.log(e.computedsyleMap()); 
 // }
 function startButtonClicked(){
+    scoreManager.resetScore();
     chosenAmountOfCards = document.querySelector(".cards-amount").value;
     amountOfCards = chosenAmountOfCards;
     clicksPerformed = 0;
@@ -83,7 +139,7 @@ function startButtonClicked(){
 }
 function cardClicked()
 {
-    
+    // gameManager.level
     if(this.getAttribute("isClicked") === "false" && clicksPerformed < 2)
     {
         // console.log(getComputedStyle(this).getPropertyValue("--current-rotation"));
@@ -98,6 +154,7 @@ function cardClicked()
         }
         else if(clicksPerformed === 2)
         {
+            scoreManager.updateTries();
             currentCardClicked = this;
             let getBackgroundImage = currentCardClicked.getAttribute('cardBackground');
             currentCardClicked.style.backgroundImage = `url(${getBackgroundImage})`;
@@ -106,6 +163,7 @@ function cardClicked()
                 let winSound = new Audio('sounds/success.wav');
                 winSound.play();
                 resetCardStoringVariables(); 
+                gameManager.addEntryToArray(true);
                 clicksPerformed = 0;
             }
             else{
@@ -145,10 +203,10 @@ function assignCardsNumbers()
     let shuffledArray = [];
     const arrayLength = newArrayOfPairs.length;
     let countDownArrayLength = arrayLength;
-    print('new array of pairs: '+ newArrayOfPairs);
+    // print('new array of pairs: '+ newArrayOfPairs);
     for(let i = 0; i < arrayLength; i++)
     {
-        print('arrayLengthThisTime: '+countDownArrayLength);
+        // print('arrayLengthThisTime: '+countDownArrayLength);
         const indexThisTime = Math.floor(Math.random()*countDownArrayLength);
         let valueFromDecreasingArrayThisTime = newArrayOfPairs[indexThisTime];
         newArrayOfPairs.splice(indexThisTime, 1);
@@ -159,8 +217,8 @@ function assignCardsNumbers()
         
     }
 
-    print(shuffledArray);
-    print(allDivsInContainer.length);
+    // print(shuffledArray);
+    // print(allDivsInContainer.length);
 
 
 }
