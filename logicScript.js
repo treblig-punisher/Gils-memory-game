@@ -72,23 +72,24 @@ function print(stringToPrint)
 {
     console.log(stringToPrint);
 }
+
 let listOfImages =[
-    "/images/billy.png",
-    "/images/charmander.png",
-    "/images/coraje.png",
-    "/images/dexter.png",
-    "/images/diddy-kong.png",
-    "/images/donkey-kong.png",
-    "/images/fenomenoide.png",
-    "/images/goku.png",
-    "/images/johnny-bravo.png",
-    "/images/kratos.png",
-    "/images/luigiPaper.png",
-    "/images/marioPaper.png",
-    "/images/megaman.png",
-    "/images/metabee.png",
-    "/images/mikey-simon.png",
-    "/images/pikachu.png",
+    "images/billy.png",
+    "images/charmander.png",
+    "images/coraje.png",
+    "images/dexter.png",
+    "images/diddy-kong.png",
+    "images/donkey-kong.png",
+    "images/fenomenoide.png",
+    "images/goku.png",
+    "images/johnny-bravo.png",
+    "images/kratos.png",
+    "images/luigiPaper.png",
+    "images/marioPaper.png",
+    "images/megaman.png",
+    "images/metabee.png",
+    "images/mikey-simon.png",
+    "images/pikachu.png",
 ];
 shuffleArray();
 
