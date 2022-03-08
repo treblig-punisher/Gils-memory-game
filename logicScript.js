@@ -13,6 +13,7 @@ playAgainButton.addEventListener('click', ()=>{
     {
         getCardsContainer.removeChild(getCardsContainer.firstChild);
     }
+    shuffleArray();
 })
 let chosenAmountOfCards = 0;
 let amountOfCards = chosenAmountOfCards;
@@ -20,12 +21,17 @@ let lastCardClicked = -1;
 let currentCardClicked = -1;
 let clicksPerformed = 0;
 let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+// const tl = new TimelineMax();
 let scoreManager ={
     tries: 0,
-    updateTries(){
-        
+    updateTries(){     
         tries++;
         this.setScoreToElement();
+        const triesContainer = document.querySelector('.bottom-ui-container');
+        // triesContainer.
+        // tl.fromTo(triesContainer, 1, {scale: 1.4}, {scale:1})
+        // triesContainer.getKeyFrameAnimationWithName
+        // keyframeAnimation.keyframeAnimationFromtriesContainer.style.animation
     },
     getTries(){
         return tries;
@@ -66,7 +72,7 @@ function print(stringToPrint)
 {
     console.log(stringToPrint);
 }
-const listOfImages =[
+let listOfImages =[
     "/images/billy.png",
     "/images/charmander.png",
     "/images/coraje.png",
@@ -83,7 +89,9 @@ const listOfImages =[
     "/images/metabee.png",
     "/images/mikey-simon.png",
     "/images/pikachu.png",
-]
+];
+shuffleArray();
+
 let assignedIdCount = 0;
 // let cardManager ={
 //     firstCard: "",
@@ -223,11 +231,18 @@ function assignCardsNumbers()
 
 }
 
-function getRandomNumber(numberRange)
+function shuffleArray()
 {
-    return Math.floor(Math.random()*numberRange);
-}
 
-function selectStartingAmountOfCards(){
+    lastIndex = listOfImages.length-1;
+    while(lastIndex > 0)
+    {
+        let randIndex = Math.floor(Math.random() * lastIndex);
+        let temp = listOfImages[lastIndex];
+        listOfImages[lastIndex] = listOfImages[randIndex];
+        listOfImages[randIndex] = temp;
+        lastIndex --;
 
+    }
+    return listOfImages;
 }

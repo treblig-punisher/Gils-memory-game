@@ -149,6 +149,14 @@ label{
     font-size: 1.3rem;
     color: white;
 }
+@keyframes make-it-pop{
+    from{
+        transform: scale(1.4);
+    }
+    to{
+        transform: scale(1);
+    }
+}
 
 .bottom-ui-container{
     display: flex;
@@ -164,7 +172,11 @@ label{
     color:rgb(255, 255, 255);
     bottom: 40px;
     font-size: 2rem;
+    animation: make-it-pop 0.4s cubic-bezier(0.2, 0.885, 0.32, 3);
+    /* transform: scale(1); */ 
+    /* transition: transform 0.2s ease; */
 }
+/* .bottom-ui-container[] */
 
 .tries-label{
     margin-right: 10px;
@@ -197,9 +209,10 @@ label{
     display: flex;
     position: absolute;
     margin-inline: auto;
+    font-family: sans-serif;
     /* align-items: space-between; */
     width: 100%;
-    height:fit-content;
+    height: 50px;
     /* background-color: aqua; */
     /* box-shadow: 0px 0px 40px rgba(10, 59, 138, 0.562); */
     justify-content: center;
@@ -213,11 +226,21 @@ label{
     background-color: rgb(75, 213, 255);
     font-size: 2rem;
     color: rgb(255, 255, 255);
+    height: fit-content;
     padding-inline: 20px;
     padding-block: 5px;
     border-radius: 2px;
+    
 }
-
+.play-again-button{
+    
+    transform: scale(1);
+    transition: color 0.2s ease-in-out, background-color 0.2s ease, padding-block 0.2s ease;
+}
 .play-again-button:hover{
+    background-color: aliceblue;
+    padding-block: 10px;
+    color: rgb(0, 28, 88);
     cursor:pointer;
+    
 }
