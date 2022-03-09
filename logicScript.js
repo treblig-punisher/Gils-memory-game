@@ -2,6 +2,15 @@ const getCardsContainer = document.querySelector(".cards-container");
 const getStartButton = document.querySelector(".start-button");
 const winScreenContainer = document.querySelector('.win-screen-container');
 const playAgainButton = document.querySelector('.play-again-button');
+const soundsManager = {
+    matchedSound: new Audio('sounds/matched.wav'),
+    noMatchSound: new Audio('sounds/noMatch.wav'),
+    youWonSound: new Audio('sounds/AllMatchesCleared.wav'),
+    startButtonSound: new Audio('sounds/startButtonClicked.wav'),
+    playCustomSound(soundName){
+        soundName.play();
+    },
+}
 playAgainButton.addEventListener('click', ()=>{
     winScreenContainer.style.setProperty('--message-visibility', 'none');
     while(gameManager.arrayOfTruth.length > 0)
@@ -28,10 +37,7 @@ let scoreManager ={
         tries++;
         this.setScoreToElement();
         const triesContainer = document.querySelector('.bottom-ui-container');
-        // triesContainer.
-        // tl.fromTo(triesContainer, 1, {scale: 1.4}, {scale:1})
-        // triesContainer.getKeyFrameAnimationWithName
-        // keyframeAnimation.keyframeAnimationFromtriesContainer.style.animation
+        // triesContainer.style.animationPlayState = 'running';
     },
     getTries(){
         return tries;
@@ -50,7 +56,8 @@ let gameManager = {
     arrayOfTruth:[],
     addEntryToArray(newEntry){
             this.arrayOfTruth.push(newEntry);
-            this.levelCleared();                              
+            this.levelCleared(); 
+            
     },
     levelCleared()
     {
@@ -62,6 +69,7 @@ let gameManager = {
             const getWinScreen = document.querySelector('.win-screen-container');
             const getVisible = getComputedStyle(getWinScreen).getPropertyValue('--visible');
             getWinScreen.style.setProperty('--message-visibility', getVisible);
+            soundsManager.playCustomSound(soundsManager.youWonSound); 
         }
     },
 }
@@ -125,6 +133,7 @@ function startButtonClicked(){
     chosenAmountOfCards = document.querySelector(".cards-amount").value;
     amountOfCards = chosenAmountOfCards;
     clicksPerformed = 0;
+    soundsManager.startButtonSound.play();
     while(getCardsContainer.firstChild)
     {
         getCardsContainer.removeChild(getCardsContainer.firstChild);
@@ -169,13 +178,14 @@ function cardClicked()
             currentCardClicked.style.backgroundImage = `url(${getBackgroundImage})`;
             if(lastCardClicked.getAttribute('cardNumber') === currentCardClicked.getAttribute('cardNumber'))
             {
-                let winSound = new Audio('sounds/success.wav');
-                winSound.play();
+                // let winSound = new Audio('sounds/success.wav');
+                soundsManager.playCustomSound(soundsManager.matchedSound);
                 resetCardStoringVariables(); 
                 gameManager.addEntryToArray(true);
                 clicksPerformed = 0;
             }
             else{
+                soundsManager.playCustomSound(soundsManager.noMatchSound);
                 setTimeout(()=>{
                     lastCardClicked.setAttribute("isClicked", "false");
                     currentCardClicked.setAttribute("isClicked", "false");  
