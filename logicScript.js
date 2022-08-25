@@ -13,15 +13,12 @@ const soundsManager = {
 }
 playAgainButton.addEventListener('click', ()=>{
     winScreenContainer.style.setProperty('--message-visibility', 'none');
-    while(gameManager.arrayOfTruth.length > 0)
-    {
-        gameManager.arrayOfTruth.pop();
-
-    }
+    emptyArrayOfTruth()
     while(getCardsContainer.firstChild)
     {
         getCardsContainer.removeChild(getCardsContainer.firstChild);
     }
+    scoreManager.resetScore();
     shuffleArray();
 })
 let chosenAmountOfCards = 0;
@@ -29,14 +26,14 @@ let amountOfCards = chosenAmountOfCards;
 let lastCardClicked = -1;
 let currentCardClicked = -1;
 let clicksPerformed = 0;
-let cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const cardIdNumber = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 // const tl = new TimelineMax();
-let scoreManager ={
+const scoreManager ={
     tries: 0,
     updateTries(){     
         tries++;
         this.setScoreToElement();
-        const triesContainer = document.querySelector('.bottom-ui-container');
+        // const triesContainer = document.querySelector('.bottom-ui-container');
         // triesContainer.style.animationPlayState = 'running';
     },
     getTries(){
@@ -45,19 +42,19 @@ let scoreManager ={
     resetScore(){
         tries = 0;
         this.setScoreToElement();
+        emptyArrayOfTruth();
     },
     setScoreToElement(){
         const getTriesElement = document.querySelector('.tries-score');
         getTriesElement.innerHTML = tries;
     },
 }
-let gameManager = {
+const gameManager = {
     matchCleared: false,
     arrayOfTruth:[],
     addEntryToArray(newEntry){
-            this.arrayOfTruth.push(newEntry);
-            this.levelCleared(); 
-            
+        this.arrayOfTruth.push(newEntry);
+        this.levelCleared();         
     },
     levelCleared()
     {
@@ -69,7 +66,9 @@ let gameManager = {
             const getWinScreen = document.querySelector('.win-screen-container');
             const getVisible = getComputedStyle(getWinScreen).getPropertyValue('--visible');
             getWinScreen.style.setProperty('--message-visibility', getVisible);
-            soundsManager.playCustomSound(soundsManager.youWonSound); 
+            soundsManager.playCustomSound(soundsManager.youWonSound);
+            const emptyArray = [];
+            this.arrayOfTruth = emptyArray;            
         }
     },
 }
@@ -81,7 +80,7 @@ function print(stringToPrint)
     console.log(stringToPrint);
 }
 
-let listOfImages =[
+const listOfImages =[
     "images/billy.png",
     "images/charmander.png",
     "images/coraje.png",
@@ -102,34 +101,13 @@ let listOfImages =[
 shuffleArray();
 
 let assignedIdCount = 0;
-// let cardManager ={
-//     firstCard: "",
-//     secondCard: "",
-//     currentPairNumber: "",
-//     pairCount: 0,
-//     pairAssigner:()=>{
-
-//     },
-//     updatePairCount:()=>{
-//         if(pairCount < 2)
-//         {
-//             pairCount ++;
-//         }
-//         else
-//         {
-//             pairCount = 0;
-//         }
-//     },
-// }
-
-
-
-// function getStyles()
-// {   
-//     // console.log(e.computedsyleMap()); 
-// }
+function emptyArrayOfTruth()
+{
+    gameManager.arrayOfTruth.forEach(()=> gameManager.arrayOfTruth.pop())
+}
 function startButtonClicked(){
     scoreManager.resetScore();
+    emptyArrayOfTruth();
     chosenAmountOfCards = document.querySelector(".cards-amount").value;
     amountOfCards = chosenAmountOfCards;
     clicksPerformed = 0;
